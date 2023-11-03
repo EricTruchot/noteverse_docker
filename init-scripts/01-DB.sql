@@ -42,7 +42,7 @@ CREATE TABLE SEASON(
    number_season INT,
    creation_date_season TIMESTAMP,
    updated_date_season TIMESTAMP,
-   id_serie_season INT,
+   id_serie INT,
    FOREIGN KEY(id_serie) REFERENCES SERIE(id_serie)
 );
 
