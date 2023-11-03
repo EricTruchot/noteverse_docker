@@ -1,0 +1,56 @@
+version: '3'
+services:
+  user_service:
+    # build:
+    #   context: ../user_service
+    image: erictruchot/user_service:0.0
+    ports:
+      - "8082:8082"
+    networks:
+      - app-network
+    depends_on:
+      - postgres_db
+  
+  note_service:
+    # build:
+    #   context: ../note_service
+    image: erictruchot/note_service:0.0
+    ports:
+      - "8081:8081"
+    networks:
+      - app-network
+    depends_on:
+      - postgres_db
+
+  front_end_service:
+    # build:
+    #   context: ../front_end_service
+    image: erictruchot/front_end_service:0.0
+    ports:
+      - "3000:3000"
+    networks:
+      - app-network
+    depends_on:
+      - user_service
+      - note_service
+
+  postgres_db:
+    image: "postgres:14"
+    ports:
+      - "5432:5432"
+    networks:
+      - app-network
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./init-scripts:/docker-entrypoint-initdb.d #script lancement DB create + insert
+    environment:
+      POSTGRES_DB: noteverse
+      POSTGRES_USER: dtest
+      POSTGRES_PASSWORD: dtest
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  postgres_data:
