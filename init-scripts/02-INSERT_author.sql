@@ -1,4 +1,4 @@
-INSERT INTO AUTHOR (name, creation_date, updated_date)
+INSERT INTO AUTHOR (name_author, creation_date_author, updated_date_author)
 VALUES 
    ('Author 1', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
    ('Author 2', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
